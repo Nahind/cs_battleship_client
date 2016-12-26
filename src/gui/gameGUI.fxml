@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.VBox?>
+
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.text.TextFlow?>
+<BorderPane fx:id="container" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.GameGUIController" >
+
+    <left>
+        <VBox spacing="20">
+            <Text text="Player 1" fx:id="player_name"/>
+            <GridPane fx:id="grid_player" alignment="center" hgap="0" vgap="0"></GridPane>
+        </VBox>
+    </left>
+
+    <right>
+        <VBox spacing="20">
+            <Text text="Player 2" fx:id="opponent_name"/>
+            <GridPane fx:id="grid_opponent" alignment="center"></GridPane>
+        </VBox>
+    </right>
+
+    <bottom>
+
+        <BorderPane>
+
+            <left>
+                <VBox fx:id="vbox" spacing="10" fillWidth="true">
+
+                    <Text fx:id="chatDescription" wrappingWidth="-NaN"
+                          text="You chat room. You can send message to insult your opponent :)"/>
+
+                    <TextArea visible="true" fx:id="logContainer" wrapText="true"/>
+
+                    <TextField fx:id="messageEdit"/>
+                </VBox>
+            </left>
+
+            <right>
+                <Text fx:id="info" text="Welcome to the Battleship game"/>
+
+            </right>
+
+
+
+            <!--<right>
+                <Text text="Hey coucou ! Allé viens on bien ! Allé viens ! Regarde tout ce qu'on peut faire !"/>
+            </right>-->
+
+
+        </BorderPane>
+
+
+    </bottom>
+
+</BorderPane>
+
+

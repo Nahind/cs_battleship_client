@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_battleshipclient" default="compile.module.battleshipclient">
+  <dirname property="module.battleshipclient.basedir" file="${ant.file.module_battleshipclient}"/>
+  
+  <property name="module.jdk.home.battleshipclient" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.battleshipclient" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.battleshipclient" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.battleshipclient" value="-encoding UTF-8 -source 8 -target 8 ${compiler.args}"/>
+  
+  <property name="battleshipclient.output.dir" value="${module.battleshipclient.basedir}/out/production/BattleshipClient"/>
+  <property name="battleshipclient.testoutput.dir" value="${module.battleshipclient.basedir}/out/test/BattleshipClient"/>
+  
+  <path id="battleshipclient.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="battleshipclient.module.production.classpath">
+    <path refid="${module.jdk.classpath.battleshipclient}"/>
+  </path>
+  
+  <path id="battleshipclient.runtime.production.module.classpath">
+    <pathelement location="${battleshipclient.output.dir}"/>
+  </path>
+  
+  <path id="battleshipclient.module.classpath">
+    <path refid="${module.jdk.classpath.battleshipclient}"/>
+    <pathelement location="${battleshipclient.output.dir}"/>
+  </path>
+  
+  <path id="battleshipclient.runtime.module.classpath">
+    <pathelement location="${battleshipclient.testoutput.dir}"/>
+    <pathelement location="${battleshipclient.output.dir}"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.battleshipclient">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.battleshipclient">
+    <patternset refid="excluded.from.module.battleshipclient"/>
+  </patternset>
+  
+  <path id="battleshipclient.module.sourcepath">
+    <dirset dir="${module.battleshipclient.basedir}">
+      <include name="src"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.battleshipclient" depends="compile.module.battleshipclient.production,compile.module.battleshipclient.tests" description="Compile module BattleshipClient"/>
+  
+  <target name="compile.module.battleshipclient.production" depends="register.custom.compilers" description="Compile module BattleshipClient; production classes">
+    <mkdir dir="${battleshipclient.output.dir}"/>
+    <javac2 destdir="${battleshipclient.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.battleshipclient}/javac">
+      <compilerarg line="${compiler.args.battleshipclient}"/>
+      <bootclasspath refid="battleshipclient.module.bootclasspath"/>
+      <classpath refid="battleshipclient.module.production.classpath"/>
+      <src refid="battleshipclient.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.battleshipclient"/>
+    </javac2>
+    
+    <copy todir="${battleshipclient.output.dir}">
+      <fileset dir="${module.battleshipclient.basedir}/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.battleshipclient.tests" depends="register.custom.compilers,compile.module.battleshipclient.production" description="compile module BattleshipClient; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.battleshipclient" description="cleanup module">
+    <delete dir="${battleshipclient.output.dir}"/>
+    <delete dir="${battleshipclient.testoutput.dir}"/>
+  </target>
+</project>
